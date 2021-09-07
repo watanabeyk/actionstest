@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: redhat-actions/oc-installer@v1
+      - uses: ./.github/redhat-actions/oc-installer
+#      - uses: redhat-actions/oc-installer@v1
         with:
           oc_version: '4.6'
       - run: oc version
