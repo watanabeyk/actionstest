@@ -20,7 +20,7 @@ jobs:
         id: execution
         continue-on-error: true
         run: |
-          exit 0
+          exit 1
       - name: Error handling
         id: errorhandling
         if: ${{ steps.execution.outcome == 'failure' }}
