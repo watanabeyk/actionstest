@@ -39,7 +39,7 @@ jobs:
         run: |
           echo ${{ env.CLEAR_RESOURCES }}
           echo ${{needs.test.outputs.clear}}
-          echo ${{needs.test.outputs.clear}} != 'false'
+          echo ${{needs.test.outputs.clear != 'false' }}
   result2:
     name: result2
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
         run: |
           echo ${{ env.CLEAR_RESOURCES }}
           echo ${{needs.test.outputs.clear}}
-          echo ${{needs.test.outputs.clear}} != 'false'
+          echo ${{needs.test.outputs.clear != 'false' }}
     
    
 
