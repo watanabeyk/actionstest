@@ -7,7 +7,6 @@ on:
 
 env:
   CLEAR_ON_TEST_FAILURE: false
-  CLEAR_RESOURCES: ture
 
 jobs:
   test:
@@ -25,8 +24,6 @@ jobs:
         id: errorhandling
         if: ${{ steps.execution.outcome == 'failure' }}
         run: |
-          echo "CLEAR_RESOURCES=${{ env.CLEAR_ON_TEST_FAILURE }}" >> $GITHUB_ENV
-          echo ${{ env.CLEAR_RESOURCES }}
           echo "::set-output name=clear::${{ env.CLEAR_ON_TEST_FAILURE }}"
           exit 1
   result:
@@ -37,19 +34,6 @@ jobs:
     steps:
       - name: result
         run: |
-          echo ${{ env.CLEAR_RESOURCES }}
-          echo ${{needs.test.outputs.clear}}
-          echo ${{needs.test.outputs.clear != 'false' }}
-  result2:
-    name: result2
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    needs: test
-    steps:
-      - name: result
-        run: |
-          echo ${{ env.CLEAR_RESOURCES }}
-          echo ${{needs.test.outputs.clear}}
           echo ${{needs.test.outputs.clear != 'false' }}
     
    
