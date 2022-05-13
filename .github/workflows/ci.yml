@@ -32,6 +32,16 @@ jobs:
   result:
     name: result
     runs-on: ubuntu-latest
+    if: ${{ always() && ${{needs.test.outputs.clear}} }}
+    needs: test
+    steps:
+      - name: result
+        run: |
+          echo ${{ env.CLEAR_RESOURCES }}
+          echo ${{needs.test.outputs.clear}}
+  result2:
+    name: result2
+    runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: test
     steps:
