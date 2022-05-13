@@ -23,7 +23,7 @@ jobs:
           exit 1
       - name: Error handling
         id: errorhandling
-#        if: ${{ steps.execution.outcome == 'failure' }}
+        if: ${{ steps.execution.outcome == 'failure' }}
         run: |
           echo "CLEAR_RESOURCES=${{ env.CLEAR_ON_TEST_FAILURE }}" >> $GITHUB_ENV
           echo ${{ env.CLEAR_RESOURCES }}
@@ -32,13 +32,14 @@ jobs:
   result:
     name: result
     runs-on: ubuntu-latest
-    if: ${{ always() && needs.test.outputs.clear!='false' }}
+    if: ${{ always() && needs.test.outputs.clear != 'false' }}
     needs: test
     steps:
       - name: result
         run: |
           echo ${{ env.CLEAR_RESOURCES }}
           echo ${{needs.test.outputs.clear}}
+          echo ${{needs.test.outputs.clear}} != 'false'
   result2:
     name: result2
     runs-on: ubuntu-latest
@@ -49,6 +50,7 @@ jobs:
         run: |
           echo ${{ env.CLEAR_RESOURCES }}
           echo ${{needs.test.outputs.clear}}
+          echo ${{needs.test.outputs.clear}} != 'false'
     
    
 
