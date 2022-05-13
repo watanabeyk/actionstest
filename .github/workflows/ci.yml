@@ -13,6 +13,8 @@ jobs:
   test:
     name: test
     runs-on: ubuntu-latest
+    outputs:
+      clear: ${{ steps.step1.outputs.test }}
     steps:
       - name: apitest
         id: execution
@@ -24,14 +26,17 @@ jobs:
         run: |
           echo "CLEAR_RESOURCES=${{ env. CLEAR_ON_TEST_FAILURE }}" >> $GITHUB_ENV
           echo ${{ env.CLEAR_RESOURCES }}
+          echo "::set-output name=clear::true"
           exit 1
   result:
     name: result
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: result
-        run: echo ${{ env.CLEAR_RESOURCES }}
-
+        run: |
+          echo ${{ env.CLEAR_RESOURCES }}
+          echo ${{needs.test.outputs.clear}}
     
    
 
