@@ -5,17 +5,35 @@ on:
    branches:
      - main
 
+env:
+  CLEAR_ON_TEST_FAILURE: true
+  CLEAR_RESOURCES: ture
+
 jobs:
   test:
     name: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/redhat-actions/oc-installer
-#      - uses: redhat-actions/oc-installer@v1
-        with:
-          oc_version: '4.6'
-      - run: oc version
+      - name: apitest
+        id: execution
+        continue-on-error: true
+        run: |
+          exit 1
+      - name: Error handling
+        if: ${{ steps.execution.outcome == 'failure' }}
+        run: |
+          echo "CLEAR_RESOURCES=${{ env. CLEAR_ON_TEST_FAILURE }}" >> $GITHUB_ENV
+          echo ${{ env.CLEAR_RESOURCES }}
+          exit 1
+  result:
+    name: result
+    runs-on: ubuntu-latest
+    steps:
+      - name: result
+        run: echo ${{ env.CLEAR_RESOURCES }}
+
+    
+   
 
 
 
