@@ -20,10 +20,10 @@ jobs:
         id: execution
         continue-on-error: true
         run: |
-          exit 1
+          exit 0
       - name: Error handling
         id: errorhandling
-#        if: ${{ steps.execution.outcome == 'failure' }}
+        if: ${{ steps.execution.outcome == 'failure' }}
         run: |
           echo "CLEAR_RESOURCES=${{ env.CLEAR_ON_TEST_FAILURE }}" >> $GITHUB_ENV
           echo ${{ env.CLEAR_RESOURCES }}
