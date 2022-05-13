@@ -32,7 +32,7 @@ jobs:
   result:
     name: result
     runs-on: ubuntu-latest
-    if: ${{ always() && needs.test.outputs.clear!="false" }}
+    if: ${{ always() && needs.test.outputs.clear!=false }}
     needs: test
     steps:
       - name: result
